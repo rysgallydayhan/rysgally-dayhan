@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export default function RysgallyDayhanApp() {
   const [showMenu, setShowMenu] = useState(false);
   const [section, setSection] = useState(null);
+  const [search, setSearch] = useState("");
 
   const fertilizers = [
     {
@@ -33,6 +34,12 @@ export default function RysgallyDayhanApp() {
     "Beýlekiler"
   ];
 
+  const filtered = fertilizers.filter(item =>
+    item.name.toLowerCase().includes(search.toLowerCase()) ||
+    item.composition.toLowerCase().includes(search.toLowerCase()) ||
+    item.firm.toLowerCase().includes(search.toLowerCase())
+  );
+
   // 🌿 Dökün katalogy
   if (section === "Dökünler") {
     return (
@@ -40,7 +47,14 @@ export default function RysgallyDayhanApp() {
         <button onClick={() => setSection(null)}>← Yza</button>
         <h1>Dökün katalogy</h1>
 
-        {fertilizers.map((item, index) => (
+        <input
+          placeholder="Dökün gözle..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{ padding: "8px", marginTop: "10px", width: "250px" }}
+        />
+
+        {filtered.map((item, index) => (
           <div key={index} style={{
             border: "1px solid #ccc",
             padding: "15px",
@@ -58,7 +72,6 @@ export default function RysgallyDayhanApp() {
     );
   }
 
-  // Bölüm sahypa
   if (section) {
     return (
       <div style={{ padding: "20px" }}>
@@ -69,7 +82,6 @@ export default function RysgallyDayhanApp() {
     );
   }
 
-  // Menü
   if (showMenu) {
     return (
       <div style={{ padding: "20px" }}>
@@ -88,7 +100,6 @@ export default function RysgallyDayhanApp() {
     );
   }
 
-  // Baş sahypa
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
       <h2>Rysgally Dayhan</h2>
