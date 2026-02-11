@@ -2,27 +2,59 @@ import React, { useState } from "react";
 
 export default function RysgallyDayhanApp() {
   const [showMenu, setShowMenu] = useState(false);
+  const [section, setSection] = useState(null);
 
+  const sections = [
+    "Dökünler",
+    "Dermanlar (Pesticid)",
+    "Agronom gurallary (ölçeýji enjam)",
+    "Ýyladyşhana enjamlar",
+    "Açyk meýdan oba hojalyk enjamlar",
+    "Suw we ösümlik analizy",
+    "Dökün resept düzüp berme",
+    "Agronom maslahaty",
+    "Beýlekiler",
+  ];
+
+  // Section sahypalary
+  if (section) {
+    return (
+      <div style={{ padding: "20px", fontFamily: "Arial" }}>
+        <button
+          onClick={() => setSection(null)}
+          style={{ marginBottom: "20px" }}
+        >
+          ← Yza
+        </button>
+
+        <h1>{section}</h1>
+        <p>Bu ýerde {section} boýunça maglumatlar görkeziler.</p>
+      </div>
+    );
+  }
+
+  // Menu sahypa
   if (showMenu) {
     return (
       <div style={{ padding: "20px", fontFamily: "Arial" }}>
         <h1>Rysgally Dayhan Bölümler 🌿</h1>
 
-        <ul style={{ lineHeight: "2", fontSize: "18px" }}>
-          <li>🌱 Dökünler</li>
-          <li>🧪 Dermanlar (Pesticid)</li>
-          <li>📏 Agronom gurallary (ölçeýji enjam)</li>
-          <li>🏡 Ýyladyşhana enjamlar</li>
-          <li>🚜 Açyk meýdan oba hojalyk enjamlar</li>
-          <li>💧 Suw we ösümlik analizy</li>
-          <li>🧾 Dökün resept düzüp berme</li>
-          <li>👨‍🌾 Agronom maslahaty</li>
-          <li>📦 Beýlekiler</li>
-        </ul>
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "400px" }}>
+          {sections.map((item) => (
+            <button
+              key={item}
+              onClick={() => setSection(item)}
+              style={{ padding: "10px", cursor: "pointer" }}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
       </div>
     );
   }
 
+  // Baş sahypa
   return (
     <div style={{ padding: "20px", fontFamily: "Arial" }}>
       <div
@@ -32,7 +64,7 @@ export default function RysgallyDayhanApp() {
           padding: "20px",
           maxWidth: "400px",
           margin: "auto",
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <h2>Rysgally Dayhan</h2>
@@ -46,7 +78,7 @@ export default function RysgallyDayhanApp() {
             color: "white",
             border: "none",
             borderRadius: "6px",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           Dowam et
