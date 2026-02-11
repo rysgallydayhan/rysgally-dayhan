@@ -4,6 +4,23 @@ export default function RysgallyDayhanApp() {
   const [showMenu, setShowMenu] = useState(false);
   const [section, setSection] = useState(null);
 
+  const fertilizers = [
+    {
+      name: "Calboron",
+      composition: "Ca 10% + B 1%",
+      firm: "Yara",
+      use: "Pomidor üçin kalsiý ýetmezçiligi",
+      available: "Bar"
+    },
+    {
+      name: "NPK 20-20-20",
+      composition: "N 20% P 20% K 20%",
+      firm: "Haifa",
+      use: "Ösüş döwründe",
+      available: "Zakaz bilen"
+    }
+  ];
+
   const sections = [
     "Dökünler",
     "Dermanlar (Pesticid)",
@@ -13,77 +30,73 @@ export default function RysgallyDayhanApp() {
     "Suw we ösümlik analizy",
     "Dökün resept düzüp berme",
     "Agronom maslahaty",
-    "Beýlekiler",
+    "Beýlekiler"
   ];
 
-  // Section sahypalary
-  if (section) {
+  // 🌿 Dökün katalogy
+  if (section === "Dökünler") {
     return (
-      <div style={{ padding: "20px", fontFamily: "Arial" }}>
-        <button
-          onClick={() => setSection(null)}
-          style={{ marginBottom: "20px" }}
-        >
-          ← Yza
-        </button>
+      <div style={{ padding: "20px" }}>
+        <button onClick={() => setSection(null)}>← Yza</button>
+        <h1>Dökün katalogy</h1>
 
-        <h1>{section}</h1>
-        <p>Bu ýerde {section} boýunça maglumatlar görkeziler.</p>
+        {fertilizers.map((item, index) => (
+          <div key={index} style={{
+            border: "1px solid #ccc",
+            padding: "15px",
+            marginTop: "15px",
+            borderRadius: "10px"
+          }}>
+            <h3>{item.name}</h3>
+            <p>Düzümi: {item.composition}</p>
+            <p>Firma: {item.firm}</p>
+            <p>Ulanylyşy: {item.use}</p>
+            <p>Elýeterlilik: {item.available}</p>
+          </div>
+        ))}
       </div>
     );
   }
 
-  // Menu sahypa
+  // Bölüm sahypa
+  if (section) {
+    return (
+      <div style={{ padding: "20px" }}>
+        <button onClick={() => setSection(null)}>← Yza</button>
+        <h1>{section}</h1>
+        <p>Bu ýerde maglumatlar görkeziler.</p>
+      </div>
+    );
+  }
+
+  // Menü
   if (showMenu) {
     return (
-      <div style={{ padding: "20px", fontFamily: "Arial" }}>
-        <h1>Rysgally Dayhan Bölümler 🌿</h1>
+      <div style={{ padding: "20px" }}>
+        <h1>Bölümler</h1>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "400px" }}>
-          {sections.map((item) => (
-            <button
-              key={item}
-              onClick={() => setSection(item)}
-              style={{ padding: "10px", cursor: "pointer" }}
-            >
-              {item}
-            </button>
-          ))}
-        </div>
+        {sections.map((item) => (
+          <button
+            key={item}
+            onClick={() => setSection(item)}
+            style={{ display: "block", marginTop: "10px" }}
+          >
+            {item}
+          </button>
+        ))}
       </div>
     );
   }
 
   // Baş sahypa
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial" }}>
-      <div
-        style={{
-          border: "1px solid #ddd",
-          borderRadius: "10px",
-          padding: "20px",
-          maxWidth: "400px",
-          margin: "auto",
-          textAlign: "center",
-        }}
-      >
-        <h2>Rysgally Dayhan</h2>
-        <p>Hoş geldiňiz!</p>
+    <div style={{ padding: "20px", textAlign: "center" }}>
+      <h2>Rysgally Dayhan</h2>
+      <p>Hoş geldiňiz</p>
 
-        <button
-          onClick={() => setShowMenu(true)}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "green",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-          }}
-        >
-          Dowam et
-        </button>
-      </div>
+      <button onClick={() => setShowMenu(true)}>
+        Dowam et
+      </button>
     </div>
   );
 }
